@@ -75,9 +75,11 @@ public class Main {
             if (!servidor.getListaChegada().isEmpty()) {
                 int atendimento = servidor.getListaChegada().remove(0);
                 servidor.getListaAtendimento().add(atendimento);
-                servidor.setOcupado(true);
+                servidor.setOcupado(Boolean.TRUE);
             } else {
+                int numeroAleatorioPartida = rand.nextInt(40) + 1;
                 servidor.getListaChegada().add(rand.nextInt(40) + 1);
+                verificarSeExisteUmaPossivelSaida(servidor, numeroAleatorioPartida);
                 servidor.setOcupado(Boolean.FALSE);
             }
         }
