@@ -4,13 +4,15 @@ public class Servidor {
     private List<Integer> listaChegada;
     private List<Integer> listaAtendimento;
     private List<Integer> listaPartida;
+    private List<Integer> temposSaida;
     private Integer relogio;
     private Boolean ocupado;
 
-    public Servidor(List<Integer> listaChegada, List<Integer> listaAtendimento, List<Integer> listaPartida, Integer relogio, Boolean ocupado) {
+    public Servidor(List<Integer> listaChegada, List<Integer> listaAtendimento, List<Integer> listaPartida, List<Integer> temposSaida, Integer relogio, Boolean ocupado) {
         this.listaChegada = listaChegada;
         this.listaAtendimento = listaAtendimento;
         this.listaPartida = listaPartida;
+        this.temposSaida = temposSaida;
         this.relogio = relogio;
         this.ocupado = ocupado;
     }
@@ -19,24 +21,16 @@ public class Servidor {
         return listaChegada;
     }
 
-    public void setListaChegada(List<Integer> listaChegada) {
-        this.listaChegada = listaChegada;
-    }
-
     public List<Integer> getListaAtendimento() {
         return listaAtendimento;
-    }
-
-    public void setListaAtendimento(List<Integer> listaAtendimento) {
-        this.listaAtendimento = listaAtendimento;
     }
 
     public List<Integer> getListaPartida() {
         return listaPartida;
     }
 
-    public void setListaPartida(List<Integer> listaPartida) {
-        this.listaPartida = listaPartida;
+    public List<Integer> getTemposSaida() {
+        return temposSaida;
     }
 
     public Integer getRelogio() {
