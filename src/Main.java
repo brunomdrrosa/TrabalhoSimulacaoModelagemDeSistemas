@@ -75,10 +75,11 @@ public class Main {
             if (!servidor.getListaChegada().isEmpty()) {
                 int atendimento = servidor.getListaChegada().remove(0);
                 servidor.getListaAtendimento().add(atendimento);
+                servidor.setOcupado(true);
             } else {
-                servidor.getListaAtendimento().add(rand.nextInt(40) + 1);
+                servidor.getListaChegada().add(rand.nextInt(40) + 1);
+                servidor.setOcupado(Boolean.FALSE);
             }
-            servidor.setOcupado(true);
         }
     }
 
