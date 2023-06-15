@@ -70,15 +70,20 @@ public class Main {
     }
 
     private static void verificarSePossivelAdicionarNovoAtendimento(Servidor servidor) {
+        Random rand = new Random();
         if (servidor.getListaAtendimento().isEmpty()) {
-            int atendimento = servidor.getListaChegada().remove(0);
-            servidor.getListaAtendimento().add(atendimento);
+            if (!servidor.getListaChegada().isEmpty()) {
+                int atendimento = servidor.getListaChegada().remove(0);
+                servidor.getListaAtendimento().add(atendimento);
+            } else {
+                servidor.getListaAtendimento().add(rand.nextInt(40) + 1);
+            }
             servidor.setOcupado(true);
         }
     }
 
     private static void verificarSePossivelFinalizarAtendimento(Servidor servidor) {
-        while (servidor.getRelogio() >= servidor.getTemposSaida().get(0)) {
+        while (!servidor.getTemposSaida().isEmpty() && servidor.getRelogio() >= servidor.getTemposSaida().get(0)) {
             if (servidor.getRelogio() >= servidor.getTemposSaida().get(0)) {
                 if (!servidor.getListaAtendimento().isEmpty()) {
                     servidor.getListaPartida().add(servidor.getListaAtendimento().get(0));
