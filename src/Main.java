@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static GeradorNPA geradorNPA;
+
     public static void main(String[] args) {
         Servidor servidor = new Servidor(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), 0, Boolean.FALSE);
         menu(servidor);
@@ -86,7 +88,7 @@ public class Main {
     }
 
     private static void verificarSePossivelFinalizarAtendimento(Servidor servidor) {
-        while (!servidor.getTemposSaida().isEmpty() && servidor.getRelogio() >= servidor.getTemposSaida().get(0)) {
+//        while (!servidor.getTemposSaida().isEmpty() && servidor.getRelogio() >= servidor.getTemposSaida().get(0)) {
             if (servidor.getRelogio() >= servidor.getTemposSaida().get(0)) {
                 if (!servidor.getListaAtendimento().isEmpty()) {
                     servidor.getListaPartida().add(servidor.getListaAtendimento().get(0));
@@ -101,7 +103,7 @@ public class Main {
                     servidor.getListaChegada().remove(0);
                 }
             }
-        }
+//        }
     }
 
 }

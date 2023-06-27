@@ -1,10 +1,10 @@
 import java.util.List;
 
 public class Servidor {
-    private List<Integer> listaChegada;
-    private List<Integer> listaAtendimento;
-    private List<Integer> listaPartida;
-    private List<Integer> temposSaida;
+    private final List<Integer> listaChegada;
+    private final List<Integer> listaAtendimento;
+    private final List<Integer> listaPartida;
+    private final List<Integer> temposSaida;
     private Integer relogio;
     private Boolean ocupado;
 
