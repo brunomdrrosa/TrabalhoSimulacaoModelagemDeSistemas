@@ -15,7 +15,7 @@ public class Main {
     public static void menu(Servidor servidor) {
         System.out.println();
         System.out.println("=== MENU ===");
-        System.out.println("1. Gerar uma nova chegada");
+        System.out.println("1. Gerar um novo evento");
         System.out.println("2. Visualizar contadores estatísticos");
         try {
             int opcaoMenu = new Scanner(System.in).nextInt();
@@ -34,6 +34,64 @@ public class Main {
     }
 
     private static void opcao1(Servidor servidor) {
+        Random rand = new Random();
+        int numeroAleatorioChegada = rand.nextInt(40) + 1;
+        int numeroAleatorioPartida = rand.nextInt(40) + 1;
+
+        adicionarCliente(servidor, numeroAleatorioChegada, numeroAleatorioPartida);
+
+        // Checar se é possível mover cliente da lista de chegada para a lista de atendimento
+        if (servidor.getListaAtendimento().isEmpty() && !servidor.getListaChegada().isEmpty()) {
+            servidor.getListaAtendimento().add(servidor.getListaChegada().get(0));
+            servidor.getListaChegada().remove(0);
+            ajustarRelogio(servidor);
+            imprimirResultados(servidor);
+            menu(servidor);
+        }
+
+        // Checar se é possível mover cliente da lista de atendimento para a lista de partida
+        if (!servidor.getTemposSaida().isEmpty()) {
+            if (servidor.getRelogio() >= servidor.getTemposSaida().get(0)) {
+                servidor.getListaPartida().add(servidor.getListaAtendimento().get(0));
+                servidor.getListaAtendimento().remove(0);
+                servidor.getTemposSaida().remove(0);
+            }
+        }
+
+        ajustarRelogio(servidor);
+
+        imprimirResultados(servidor);
+        menu(servidor);
+    }
+
+    private static void ajustarRelogio(Servidor servidor) {
+        if (servidor.getRelogio() > servidor.getTemposSaida().get(0)) {
+            servidor.setRelogio(servidor.getTemposSaida().get(0));
+        }
+    }
+
+    private static void imprimirResultados(Servidor servidor) {
+        System.out.println("LISTA DE CHEGADA: " + servidor.getListaChegada());
+        System.out.println("LISTA DE ATENDIMENTO: " + servidor.getListaAtendimento());
+        System.out.println("LISTA DE PARTIDA: " + servidor.getListaPartida());
+        System.out.println("TEMPOS DE SAÍDA: " + servidor.getTemposSaida());
+        System.out.println("RELOGIO: " + servidor.getRelogio());
+        System.out.println("OCUPADO: " + servidor.getOcupado());
+    }
+
+    private static void adicionarCliente(Servidor servidor, int numeroAleatorioChegada, int numeroAleatorioPartida) {
+        servidor.getListaChegada().add(numeroAleatorioChegada);
+        if (servidor.getTemposSaida().isEmpty()) {
+            servidor.getTemposSaida().add(numeroAleatorioChegada + numeroAleatorioPartida);
+            servidor.setRelogio(servidor.getRelogio() + numeroAleatorioChegada);
+        } else {
+            int posicao = servidor.getTemposSaida().size() - 1;
+            servidor.getTemposSaida().add(servidor.getTemposSaida().get(posicao) + numeroAleatorioPartida);
+            servidor.setRelogio(servidor.getRelogio() + numeroAleatorioChegada);
+        }
+    }
+
+    private static void opcao11(Servidor servidor) {
         Random rand = new Random();
         int numeroAleatorioChegada = rand.nextInt(40) + 1;
         int numeroAleatorioPartida = rand.nextInt(40) + 1;
