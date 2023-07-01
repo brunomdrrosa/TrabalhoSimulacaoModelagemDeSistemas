@@ -1,51 +1,80 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Servidor {
-    private final List<Integer> listaChegada;
-    private final List<Integer> listaAtendimento;
-    private final List<Integer> listaPartida;
-    private final List<Integer> temposSaida;
-    private Integer relogio;
-    private Boolean ocupado;
+    private Integer statusServidor;
+    private Integer numeroEmFila;
+    private ArrayList filaChegada;
+    private Integer tempoUltimoEvento;
+    private Integer relogioSimulacao;
+    private Long proximaSaida;
+    private Boolean fimSimulacao;
+    private String proximoEvento;
+    private Integer areaSobQuantidade;
+    private Integer areaSobOcupacao;
+    private Integer clientesAtendidos;
+    private Integer valorAnterior;
 
-    public Servidor(List<Integer> listaChegada, List<Integer> listaAtendimento, List<Integer> listaPartida, List<Integer> temposSaida, Integer relogio, Boolean ocupado) {
-        this.listaChegada = listaChegada;
-        this.listaAtendimento = listaAtendimento;
-        this.listaPartida = listaPartida;
-        this.temposSaida = temposSaida;
-        this.relogio = relogio;
-        this.ocupado = ocupado;
+    public Servidor(Integer statusServidor, Integer numeroEmFila, ArrayList filaChegada, Integer tempoUltimoEvento, Integer relogioSimulacao, Long proximaSaida, Boolean fimSimulacao, String proximoEvento, Integer areaSobQuantidade, Integer areaSobOcupacao, Integer clientesAtendidos, Integer valorAnterior) {
+        this.statusServidor = statusServidor;
+        this.numeroEmFila = numeroEmFila;
+        this.filaChegada = filaChegada;
+        this.tempoUltimoEvento = tempoUltimoEvento;
+        this.relogioSimulacao = relogioSimulacao;
+        this.proximaSaida = proximaSaida;
+        this.fimSimulacao = fimSimulacao;
+        this.proximoEvento = proximoEvento;
+        this.areaSobQuantidade = areaSobQuantidade;
+        this.areaSobOcupacao = areaSobOcupacao;
+        this.clientesAtendidos = clientesAtendidos;
+        this.valorAnterior = valorAnterior;
     }
 
-    public List<Integer> getListaChegada() {
-        return listaChegada;
+    public Integer getStatusServidor() {
+        return statusServidor;
     }
 
-    public List<Integer> getListaAtendimento() {
-        return listaAtendimento;
+    public Integer getNumeroEmFila() {
+        return numeroEmFila;
     }
 
-    public List<Integer> getListaPartida() {
-        return listaPartida;
+    public ArrayList getFilaChegada() {
+        return filaChegada;
     }
 
-    public List<Integer> getTemposSaida() {
-        return temposSaida;
+    public Integer getTempoUltimoEvento() {
+        return tempoUltimoEvento;
     }
 
-    public Integer getRelogio() {
-        return relogio;
+    public Integer getRelogioSimulacao() {
+        return relogioSimulacao;
     }
 
-    public void setRelogio(Integer relogio) {
-        this.relogio = relogio;
+    public Long getProximaSaida() {
+        return proximaSaida;
     }
 
-    public Boolean getOcupado() {
-        return ocupado;
+    public Boolean getFimSimulacao() {
+        return fimSimulacao;
     }
 
-    public void setOcupado(Boolean ocupado) {
-        this.ocupado = ocupado;
+    public String getProximoEvento() {
+        return proximoEvento;
+    }
+
+    public Integer getAreaSobQuantidade() {
+        return areaSobQuantidade;
+    }
+
+    public Integer getAreaSobOcupacao() {
+        return areaSobOcupacao;
+    }
+
+    public Integer getClientesAtendidos() {
+        return clientesAtendidos;
+    }
+
+    public Integer getValorAnterior() {
+        return valorAnterior;
     }
 }

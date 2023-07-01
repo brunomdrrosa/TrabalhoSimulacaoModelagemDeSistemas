@@ -1,10 +1,18 @@
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 public class GeradorNPA {
 
-    public static void main(String[] args) {
-        CongruenteLinear congruenteLinear = new CongruenteLinear(10, 3, 7, 128, 28);
+    public static ArrayList<Double> gerarListaNPAs(Integer numeroNpas,
+                                                   Integer valorA,
+                                                   Integer valorC,
+                                                   Integer valorM,
+                                                   Integer valorX0) {
+        CongruenteLinear congruenteLinear = new CongruenteLinear(numeroNpas, valorA, valorC, valorM, valorX0);
         ArrayList<Integer> ultimoNumeroGerado = new ArrayList<>();
+        ArrayList<Double> listaNpas = new ArrayList<>();
         ultimoNumeroGerado.add(congruenteLinear.getValorX0());
 
         for (int i = 0; i < congruenteLinear.getNumeroNpas(); i++) {
@@ -20,14 +28,10 @@ public class GeradorNPA {
 
             ultimoNumeroGerado.add((int) resultado);
             double valorNPA = resultado / (congruenteLinear.getValorM() - 1);
-            System.out.println(valorNPA);
-            System.out.println("Valor x" + (i + 1) + ": " + resultado);
-            System.out.println("NPA x" + (i + 1) + ": " + String.format("%.4f", valorNPA));
-            System.out.println();
+            double npaArredondado = new BigDecimal(valorNPA).setScale(4, RoundingMode.HALF_UP).doubleValue();
+            listaNpas.add(npaArredondado);
         }
+        return listaNpas;
     }
 
-    public Integer teste() {
-        return 1;
-    }
 }
