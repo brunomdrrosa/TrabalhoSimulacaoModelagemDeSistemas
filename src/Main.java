@@ -1,6 +1,4 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -10,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         Servidor servidor = new Servidor(0, 0, new ArrayList(), 0, 0,
-                9999999999L, Boolean.FALSE, "C", 0, 0, 0, 0, 0);
+                9999999999L, 0, Boolean.FALSE, "C", 0, 0, 0, 0, 0);
         menu(servidor);
     }
 
@@ -41,10 +39,42 @@ public class Main {
         System.out.println(tempoSimulacao);
 
 //        geradorNPA.gerarListaNPAs(1, valorA, valorC, valorM, valorX0);
+
+        while (!servidor.getFimSimulacao()) {
+            if (servidor.getProximoEvento() == "C") {
+                processarChegada(servidor);
+            } else {
+                processarSaida(servidor);
+            }
+            if (servidor.getProximaChegada() > tempoSimulacao && servidor.getProximaSaida() == 9999999999L) {
+                servidor.setFimSimulacao(Boolean.TRUE);
+            } else if (servidor.getProximaChegada() > tempoSimulacao) {
+                servidor.setProximoEvento("S");
+            } else {
+                servidor.setProximoEvento(temporizador(servidor));
+            }
+        }
+
+    }
+
+    private static String temporizador(Servidor servidor) {
+        System.out.println("Temporizador:");
+        System.out.println("Próxima chegada: " + servidor.getProximaChegada());
+        System.out.println("Próxima saída: " + servidor.getProximaSaida());
+        if (servidor.getProximaChegada() <= servidor.getProximaSaida()) {
+            servidor.setProximoEvento("C");
+            return "C";
+        } else {
+            servidor.setProximoEvento("S");
+            return "S";
+        }
     }
 
     private static void opcao1(Servidor servidor) {
         processarChegada(servidor);
+    }
+
+    private static void processarSaida(Servidor servidor) {
     }
 
     private static void processarChegada(Servidor servidor) {
@@ -62,6 +92,7 @@ public class Main {
 //              tempoUltimoEvento =
 //        }
 //    }
-
     }
+
+
 }

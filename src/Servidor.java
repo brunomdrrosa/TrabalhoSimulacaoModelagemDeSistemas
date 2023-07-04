@@ -7,6 +7,7 @@ public class Servidor {
     private double tempoUltimoEvento;
     private double relogioSimulacao;
     private double proximaSaida;
+    private double proximaChegada;
     private Boolean fimSimulacao;
     private String proximoEvento;
     private double areaSobQuantidade;
@@ -15,13 +16,14 @@ public class Servidor {
     private double valorAnterior;
     private double chegada;
 
-    public Servidor(double statusServidor, double numeroEmFila, ArrayList filaChegada, double tempoUltimoEvento, double relogioSimulacao, double proximaSaida, Boolean fimSimulacao, String proximoEvento, double areaSobQuantidade, double areaSobOcupacao, double clientesAtendidos, double valorAnterior, double chegada) {
+    public Servidor(double statusServidor, double numeroEmFila, ArrayList filaChegada, double tempoUltimoEvento, double relogioSimulacao, double proximaSaida, double proximaChegada, Boolean fimSimulacao, String proximoEvento, double areaSobQuantidade, double areaSobOcupacao, double clientesAtendidos, double valorAnterior, double chegada) {
         this.statusServidor = statusServidor;
         this.numeroEmFila = numeroEmFila;
         this.filaChegada = filaChegada;
         this.tempoUltimoEvento = tempoUltimoEvento;
         this.relogioSimulacao = relogioSimulacao;
         this.proximaSaida = proximaSaida;
+        this.proximaChegada = proximaChegada;
         this.fimSimulacao = fimSimulacao;
         this.proximoEvento = proximoEvento;
         this.areaSobQuantidade = areaSobQuantidade;
@@ -77,6 +79,14 @@ public class Servidor {
 
     public void setProximaSaida(double proximaSaida) {
         this.proximaSaida = proximaSaida;
+    }
+
+    public double getProximaChegada() {
+        return proximaChegada;
+    }
+
+    public void setProximaChegada(double proximaChegada) {
+        this.proximaChegada = proximaChegada;
     }
 
     public Boolean getFimSimulacao() {
