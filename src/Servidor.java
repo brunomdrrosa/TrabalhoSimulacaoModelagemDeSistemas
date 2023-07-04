@@ -1,21 +1,21 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Servidor {
-    private Integer statusServidor;
-    private Integer numeroEmFila;
+    private double statusServidor;
+    private double numeroEmFila;
     private ArrayList filaChegada;
-    private Integer tempoUltimoEvento;
-    private Integer relogioSimulacao;
-    private Long proximaSaida;
+    private double tempoUltimoEvento;
+    private double relogioSimulacao;
+    private double proximaSaida;
     private Boolean fimSimulacao;
     private String proximoEvento;
-    private Integer areaSobQuantidade;
-    private Integer areaSobOcupacao;
-    private Integer clientesAtendidos;
-    private Integer valorAnterior;
+    private double areaSobQuantidade;
+    private double areaSobOcupacao;
+    private double clientesAtendidos;
+    private double valorAnterior;
+    private double chegada;
 
-    public Servidor(Integer statusServidor, Integer numeroEmFila, ArrayList filaChegada, Integer tempoUltimoEvento, Integer relogioSimulacao, Long proximaSaida, Boolean fimSimulacao, String proximoEvento, Integer areaSobQuantidade, Integer areaSobOcupacao, Integer clientesAtendidos, Integer valorAnterior) {
+    public Servidor(double statusServidor, double numeroEmFila, ArrayList filaChegada, double tempoUltimoEvento, double relogioSimulacao, double proximaSaida, Boolean fimSimulacao, String proximoEvento, double areaSobQuantidade, double areaSobOcupacao, double clientesAtendidos, double valorAnterior, double chegada) {
         this.statusServidor = statusServidor;
         this.numeroEmFila = numeroEmFila;
         this.filaChegada = filaChegada;
@@ -28,53 +28,110 @@ public class Servidor {
         this.areaSobOcupacao = areaSobOcupacao;
         this.clientesAtendidos = clientesAtendidos;
         this.valorAnterior = valorAnterior;
+        this.chegada = chegada;
     }
 
-    public Integer getStatusServidor() {
+    public double getStatusServidor() {
         return statusServidor;
     }
 
-    public Integer getNumeroEmFila() {
+    public void setStatusServidor(double statusServidor) {
+        this.statusServidor = statusServidor;
+    }
+
+    public double getNumeroEmFila() {
         return numeroEmFila;
+    }
+
+    public void setNumeroEmFila(double numeroEmFila) {
+        this.numeroEmFila = numeroEmFila;
     }
 
     public ArrayList getFilaChegada() {
         return filaChegada;
     }
 
-    public Integer getTempoUltimoEvento() {
+    public void setFilaChegada(ArrayList filaChegada) {
+        this.filaChegada = filaChegada;
+    }
+
+    public double getTempoUltimoEvento() {
         return tempoUltimoEvento;
     }
 
-    public Integer getRelogioSimulacao() {
+    public void setTempoUltimoEvento(double tempoUltimoEvento) {
+        this.tempoUltimoEvento = tempoUltimoEvento;
+    }
+
+    public double getRelogioSimulacao() {
         return relogioSimulacao;
     }
 
-    public Long getProximaSaida() {
+    public void setRelogioSimulacao(double relogioSimulacao) {
+        this.relogioSimulacao = relogioSimulacao;
+    }
+
+    public double getProximaSaida() {
         return proximaSaida;
+    }
+
+    public void setProximaSaida(double proximaSaida) {
+        this.proximaSaida = proximaSaida;
     }
 
     public Boolean getFimSimulacao() {
         return fimSimulacao;
     }
 
+    public void setFimSimulacao(Boolean fimSimulacao) {
+        this.fimSimulacao = fimSimulacao;
+    }
+
     public String getProximoEvento() {
         return proximoEvento;
     }
 
-    public Integer getAreaSobQuantidade() {
+    public void setProximoEvento(String proximoEvento) {
+        this.proximoEvento = proximoEvento;
+    }
+
+    public double getAreaSobQuantidade() {
         return areaSobQuantidade;
     }
 
-    public Integer getAreaSobOcupacao() {
+    public void setAreaSobQuantidade(double areaSobQuantidade) {
+        this.areaSobQuantidade = areaSobQuantidade;
+    }
+
+    public double getAreaSobOcupacao() {
         return areaSobOcupacao;
     }
 
-    public Integer getClientesAtendidos() {
+    public void setAreaSobOcupacao(double areaSobOcupacao) {
+        this.areaSobOcupacao = areaSobOcupacao;
+    }
+
+    public double getClientesAtendidos() {
         return clientesAtendidos;
     }
 
-    public Integer getValorAnterior() {
+    public void setClientesAtendidos(double clientesAtendidos) {
+        this.clientesAtendidos = clientesAtendidos;
+    }
+
+    public double getValorAnterior() {
         return valorAnterior;
+    }
+
+    public void setValorAnterior(double valorAnterior) {
+        this.valorAnterior = valorAnterior;
+    }
+
+    public double getChegada() {
+        return chegada;
+    }
+
+    public void setChegada(double chegada) {
+        this.chegada = chegada;
     }
 }

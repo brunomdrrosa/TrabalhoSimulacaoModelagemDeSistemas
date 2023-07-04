@@ -5,15 +5,15 @@ import java.util.ArrayList;
 
 public class GeradorNPA {
 
-    public static ArrayList<Double> gerarListaNPAs(Integer numeroNpas,
-                                                   Integer valorA,
-                                                   Integer valorC,
-                                                   Integer valorM,
-                                                   Integer valorX0) {
+    public ArrayList<Double> gerarListaNPAs(Integer numeroNpas,
+                                                   double valorA,
+                                                   double valorC,
+                                                   double valorM,
+                                                   double valorX0) {
         CongruenteLinear congruenteLinear = new CongruenteLinear(numeroNpas, valorA, valorC, valorM, valorX0);
         ArrayList<Integer> ultimoNumeroGerado = new ArrayList<>();
         ArrayList<Double> listaNpas = new ArrayList<>();
-        ultimoNumeroGerado.add(congruenteLinear.getValorX0());
+//        ultimoNumeroGerado.add(congruenteLinear.getValorX0());
 
         for (int i = 0; i < congruenteLinear.getNumeroNpas(); i++) {
             double formula = (ultimoNumeroGerado.get(i) * congruenteLinear.getValorA() + congruenteLinear.getValorC()) / (double) congruenteLinear.getValorM();

@@ -1,11 +1,11 @@
 public class CongruenteLinear {
-    private final Integer numeroNpas;
-    private final Integer valorA;
-    private final Integer valorC;
-    private final Integer valorM;
-    private final Integer valorX0;
+    private double numeroNpas;
+    private double valorA;
+    private double valorC;
+    private double valorM;
+    private double valorX0;
 
-    public CongruenteLinear(Integer numeroNpas, Integer valorA, Integer valorC, Integer valorM, Integer valorX0) {
+    public CongruenteLinear(double numeroNpas, double valorA, double valorC, double valorM, double valorX0) {
         this.numeroNpas = numeroNpas;
         this.valorA = valorA;
         this.valorC = valorC;
@@ -13,23 +13,43 @@ public class CongruenteLinear {
         this.valorX0 = valorX0;
     }
 
-    public Integer getNumeroNpas() {
+    public double getNumeroNpas() {
         return numeroNpas;
     }
 
-    public Integer getValorA() {
+    public void setNumeroNpas(double numeroNpas) {
+        this.numeroNpas = numeroNpas;
+    }
+
+    public double getValorA() {
         return valorA;
     }
 
-    public Integer getValorC() {
+    public void setValorA(double valorA) {
+        this.valorA = valorA;
+    }
+
+    public double getValorC() {
         return valorC;
     }
 
-    public Integer getValorM() {
+    public void setValorC(double valorC) {
+        this.valorC = valorC;
+    }
+
+    public double getValorM() {
         return valorM;
     }
 
-    public Integer getValorX0() {
+    public void setValorM(double valorM) {
+        this.valorM = valorM;
+    }
+
+    public double getValorX0() {
         return valorX0;
+    }
+
+    public void setValorX0(double valorX0) {
+        this.valorX0 = valorX0;
     }
 }
