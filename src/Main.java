@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.Scanner;
 
 public class Main {
 
@@ -14,30 +13,34 @@ public class Main {
     }
 
     public static void menu(Servidor servidor) {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Insira os dados para gerar os NPAs: ");
-        System.out.print("Insira o valor de X0: ");
-        double valorX0 = input.nextDouble();
-        System.out.print("Insira o valor de A: ");
-        double valorA = input.nextDouble();
-        System.out.print("Insira o valor de C: ");
-        double valorC = input.nextDouble();
-        System.out.print("Insira o valor de M: ");
-        double valorM = input.nextDouble();
-        System.out.print("Insira o tempo médio entre chegadas (exponencial): ");
-        double tempoMedioChegadas = input.nextDouble();
-        System.out.print("Insira o tempo médio entre atendimentos (exponencial): ");
-        double tempoMedioAtendimento = input.nextDouble();
-        System.out.print( "Insira o tempo de simulação: ");
-        double tempoSimulacao = input.nextDouble();
+//        Scanner input = new Scanner(System.in);
+//        System.out.println("Insira os dados para gerar os NPAs: ");
+//        System.out.print("Insira o valor de X0: ");
+//        double valorX0 = input.nextDouble();
+//        System.out.print("Insira o valor de A: ");
+//        double valorA = input.nextDouble();
+//        System.out.print("Insira o valor de C: ");
+//        double valorC = input.nextDouble();
+//        System.out.print("Insira o valor de M: ");
+//        double valorM = input.nextDouble();
+//        System.out.print("Insira o tempo médio entre chegadas (exponencial): ");
+//        double tempoMedioChegadas = input.nextDouble();
+//        System.out.print("Insira o tempo médio entre atendimentos (exponencial): ");
+//        double tempoMedioAtendimento = input.nextDouble();
+//        System.out.print( "Insira o tempo de simulação: ");
+//        double tempoSimulacao = input.nextDouble();
+        CongruenteLinear metodoCongruenteLinear = new CongruenteLinear(3, 7, 128, 28);
+        double tempoSimulacao = 480;
+        double tempoMedioChegadas = 1;
+        double tempoMedioAtendimento = 0.5;
 
-//        geradorNPA.gerarListaNPAs(1, valorA, valorC, valorM, valorX0);
+        validarSementes(metodoCongruenteLinear, tempoSimulacao, tempoMedioChegadas, tempoMedioAtendimento);
 
         while (!servidor.getFimSimulacao()) {
             if (Objects.equals(servidor.getProximoEvento(), "C")) {
-                processarChegada(servidor);
+                processarChegada(metodoCongruenteLinear, servidor);
             } else {
-                processarSaida(servidor);
+                processarSaida(metodoCongruenteLinear, servidor);
             }
             if (servidor.getProximaChegada() > tempoSimulacao && servidor.getProximaSaida() == 9999999999L) {
                 servidor.setFimSimulacao(Boolean.TRUE);
@@ -63,11 +66,11 @@ public class Main {
         }
     }
 
-    private static void processarSaida(Servidor servidor) {
+    private static void processarSaida(CongruenteLinear metodoCongruenteLinear, Servidor servidor) {
 //        servidor.setRelogioSimulacao(servidor.getSaida());
         double relogioMenosUltimoEvento = servidor.getRelogioSimulacao() - servidor.getTempoUltimoEvento();
         if (servidor.getNumeroEmFila() > 0) {
-            servidor.setProximaSaida(servidor.getRelogioSimulacao() + gerarEvento(servidor));
+            servidor.setProximaSaida(servidor.getRelogioSimulacao() + gerarEvento(metodoCongruenteLinear, servidor.getProximaSaida()));
             servidor.setAreaSobQuantidade(servidor.getAreaSobQuantidade() + relogioMenosUltimoEvento * servidor.getNumeroEmFila());
             servidor.setNumeroEmFila(servidor.getNumeroEmFila() - 1);
             servidor.getFilaChegada().remove(0);
@@ -81,12 +84,12 @@ public class Main {
         servidor.setClientesAtendidos(servidor.getClientesAtendidos() + 1);
     }
 
-    private static void processarChegada(Servidor servidor) {
+    private static void processarChegada(CongruenteLinear metodoCongruenteLinear, Servidor servidor) {
         servidor.setRelogioSimulacao(servidor.getChegada());
-        servidor.setProximaChegada(servidor.getRelogioSimulacao() + gerarEvento(servidor));
+        servidor.setProximaChegada(servidor.getRelogioSimulacao() + gerarEvento(metodoCongruenteLinear, servidor.getProximaChegada()));
         if (servidor.getStatusServidor() == 0) {
             servidor.setStatusServidor(1);
-            servidor.setProximaSaida(servidor.getRelogioSimulacao() + gerarEvento(servidor));
+            servidor.setProximaSaida(servidor.getRelogioSimulacao() + gerarEvento(metodoCongruenteLinear, servidor.getProximaSaida()));
         } else {
             double relogioMenosUltimoEvento = servidor.getRelogioSimulacao() - servidor.getTempoUltimoEvento();
             servidor.setAreaSobQuantidade(servidor.getAreaSobQuantidade() + relogioMenosUltimoEvento * servidor.getNumeroEmFila());
@@ -97,8 +100,45 @@ public class Main {
         servidor.setTempoUltimoEvento(servidor.getRelogioSimulacao());
     }
 
-    private static double gerarEvento(Servidor servidor) {
-        return 1.0;
+    private static double gerarEvento(CongruenteLinear metodoCongruenteLinear, double evento) {
+        double semente = (metodoCongruenteLinear.getValorX0() * metodoCongruenteLinear.getValorA() + metodoCongruenteLinear.getValorC()) % metodoCongruenteLinear.getValorM();
+        double npa = semente / (metodoCongruenteLinear.getValorM() - 1);
+        double numeroAleatorio = Math.abs(Math.log(npa) * evento);
+        metodoCongruenteLinear.setValorX0(semente);
+
+        if (Double.isInfinite(numeroAleatorio)) {
+            return 0;
+        }
+
+        return numeroAleatorio;
     }
+
+    private static void validarSementes(CongruenteLinear metodoCongruenteLinear, double tempoSimulacao,
+                                        double tempoMedioChegadas, double tempoMedioAtendimento) {
+        ArrayList<Double> sementes = new ArrayList<>();
+        double sementesSomadas = 0;
+
+        while (sementesSomadas < tempoSimulacao) {
+            double eventoChegada = gerarEvento(metodoCongruenteLinear, tempoMedioChegadas);
+            double eventoSaida = gerarEvento(metodoCongruenteLinear, tempoMedioAtendimento);
+            boolean sementeRepetida = sementes.contains(eventoChegada);
+
+            if (sementeRepetida) {
+                System.out.println("Semente inválida");
+                break;
+            }
+            sementes.add(eventoChegada);
+            sementes.add(eventoSaida);
+
+            sementesSomadas = somarSementes(sementes);
+        }
+            System.out.println("Tempo total alcançado: " + sementesSomadas);
+            System.out.println("Tempo mínimo esperado: " + tempoSimulacao);
+    }
+
+    private static double somarSementes(ArrayList<Double> sementes) {
+        return sementes.stream().reduce(0.0, Double::sum);
+    }
+
 
 }
