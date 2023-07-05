@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -7,7 +8,7 @@ public class Main {
     private static CongruenteLinear congruenteLinear;
 
     public static void main(String[] args) {
-        Servidor servidor = new Servidor(0, 0, new ArrayList(), 0, 0,
+        Servidor servidor = new Servidor(0, 0, new ArrayList<>(), 0, 0,
                 9999999999L, 0, Boolean.FALSE, "C", 0, 0, 0, 0, 0);
         menu(servidor);
     }
@@ -30,18 +31,10 @@ public class Main {
         System.out.print( "Insira o tempo de simulação: ");
         double tempoSimulacao = input.nextDouble();
 
-        System.out.println(valorX0);
-        System.out.println(valorA);
-        System.out.println(valorC);
-        System.out.println(valorM);
-        System.out.println(tempoMedioChegadas);
-        System.out.println(tempoMedioAtendimento);
-        System.out.println(tempoSimulacao);
-
 //        geradorNPA.gerarListaNPAs(1, valorA, valorC, valorM, valorX0);
 
         while (!servidor.getFimSimulacao()) {
-            if (servidor.getProximoEvento() == "C") {
+            if (Objects.equals(servidor.getProximoEvento(), "C")) {
                 processarChegada(servidor);
             } else {
                 processarSaida(servidor);
@@ -70,29 +63,42 @@ public class Main {
         }
     }
 
-    private static void opcao1(Servidor servidor) {
-        processarChegada(servidor);
-    }
-
     private static void processarSaida(Servidor servidor) {
+//        servidor.setRelogioSimulacao(servidor.getSaida());
+        double relogioMenosUltimoEvento = servidor.getRelogioSimulacao() - servidor.getTempoUltimoEvento();
+        if (servidor.getNumeroEmFila() > 0) {
+            servidor.setProximaSaida(servidor.getRelogioSimulacao() + gerarEvento(servidor));
+            servidor.setAreaSobQuantidade(servidor.getAreaSobQuantidade() + relogioMenosUltimoEvento * servidor.getNumeroEmFila());
+            servidor.setNumeroEmFila(servidor.getNumeroEmFila() - 1);
+            servidor.getFilaChegada().remove(0);
+//            tempoTotalFila
+        } else {
+            servidor.setAreaSobOcupacao(servidor.getAreaSobOcupacao() + relogioMenosUltimoEvento * servidor.getStatusServidor());
+            servidor.setProximaSaida(9999999999L);
+            servidor.setStatusServidor(0);
+        }
+        servidor.setTempoUltimoEvento(servidor.getRelogioSimulacao());
+        servidor.setClientesAtendidos(servidor.getClientesAtendidos() + 1);
     }
 
     private static void processarChegada(Servidor servidor) {
         servidor.setRelogioSimulacao(servidor.getChegada());
-//        relogioSimulacao =
-//                proximaChegada = relogioSimulacao
-//        if (statusServidor == 0) {
-//            statusServidor = 1;
-//            proximaSaida =
-//        } else {
-////            areaSobQuantidade = areaSobQuantidade +
-////              areaSobOcupacao = areaSobOcupacao +
-////            filaChegada.add()
-//              numeroEmFila = numeroEmFila + 1;
-//              tempoUltimoEvento =
-//        }
-//    }
+        servidor.setProximaChegada(servidor.getRelogioSimulacao() + gerarEvento(servidor));
+        if (servidor.getStatusServidor() == 0) {
+            servidor.setStatusServidor(1);
+            servidor.setProximaSaida(servidor.getRelogioSimulacao() + gerarEvento(servidor));
+        } else {
+            double relogioMenosUltimoEvento = servidor.getRelogioSimulacao() - servidor.getTempoUltimoEvento();
+            servidor.setAreaSobQuantidade(servidor.getAreaSobQuantidade() + relogioMenosUltimoEvento * servidor.getNumeroEmFila());
+            servidor.setAreaSobOcupacao(servidor.getAreaSobOcupacao() + relogioMenosUltimoEvento * servidor.getStatusServidor());
+            servidor.getFilaChegada().add(servidor.getChegada());
+            servidor.setNumeroEmFila(servidor.getNumeroEmFila() + 1);
+        }
+        servidor.setTempoUltimoEvento(servidor.getRelogioSimulacao());
     }
 
+    private static double gerarEvento(Servidor servidor) {
+        return 1.0;
+    }
 
 }

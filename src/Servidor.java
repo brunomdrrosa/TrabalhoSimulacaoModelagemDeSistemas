@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public class Servidor {
     private double statusServidor;
     private double numeroEmFila;
-    private ArrayList filaChegada;
+    private ArrayList<Double> filaChegada;
     private double tempoUltimoEvento;
     private double relogioSimulacao;
     private double proximaSaida;
@@ -16,7 +16,7 @@ public class Servidor {
     private double valorAnterior;
     private double chegada;
 
-    public Servidor(double statusServidor, double numeroEmFila, ArrayList filaChegada, double tempoUltimoEvento, double relogioSimulacao, double proximaSaida, double proximaChegada, Boolean fimSimulacao, String proximoEvento, double areaSobQuantidade, double areaSobOcupacao, double clientesAtendidos, double valorAnterior, double chegada) {
+    public Servidor(double statusServidor, double numeroEmFila, ArrayList<Double> filaChegada, double tempoUltimoEvento, double relogioSimulacao, double proximaSaida, double proximaChegada, Boolean fimSimulacao, String proximoEvento, double areaSobQuantidade, double areaSobOcupacao, double clientesAtendidos, double valorAnterior, double chegada) {
         this.statusServidor = statusServidor;
         this.numeroEmFila = numeroEmFila;
         this.filaChegada = filaChegada;
@@ -49,11 +49,11 @@ public class Servidor {
         this.numeroEmFila = numeroEmFila;
     }
 
-    public ArrayList getFilaChegada() {
+    public ArrayList<Double> getFilaChegada() {
         return filaChegada;
     }
 
-    public void setFilaChegada(ArrayList filaChegada) {
+    public void setFilaChegada(ArrayList<Double> filaChegada) {
         this.filaChegada = filaChegada;
     }
 
