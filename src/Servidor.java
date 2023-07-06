@@ -15,6 +15,8 @@ public class Servidor {
     private double clientesAtendidos;
     private double valorAnterior;
     private double chegada;
+    private Integer indice;
+    private double tempoTotalFila;
 
     public Servidor(double statusServidor, double numeroEmFila, ArrayList<Double> filaChegada, double tempoUltimoEvento, double relogioSimulacao, double proximaSaida, double proximaChegada, Boolean fimSimulacao, String proximoEvento, double areaSobQuantidade, double areaSobOcupacao, double clientesAtendidos, double valorAnterior, double chegada) {
         this.statusServidor = statusServidor;
@@ -31,6 +33,22 @@ public class Servidor {
         this.clientesAtendidos = clientesAtendidos;
         this.valorAnterior = valorAnterior;
         this.chegada = chegada;
+    }
+
+    public double getTempoTotalFila() {
+        return tempoTotalFila;
+    }
+
+    public void setTempoTotalFila(double tempoTotalFila) {
+        this.tempoTotalFila = tempoTotalFila;
+    }
+
+    public Integer getIndice() {
+        return indice;
+    }
+
+    public void setIndice(Integer indice) {
+        this.indice = indice;
     }
 
     public double getStatusServidor() {
