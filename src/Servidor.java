@@ -1,38 +1,22 @@
 import java.util.ArrayList;
 
 public class Servidor {
-    private double statusServidor;
-    private double numeroEmFila;
-    private ArrayList<Double> filaChegada;
-    private double tempoUltimoEvento;
-    private double relogioSimulacao;
-    private double proximaSaida;
-    private double proximaChegada;
-    private Boolean fimSimulacao;
-    private String proximoEvento;
-    private double areaSobQuantidade;
-    private double areaSobOcupacao;
-    private double clientesAtendidos;
-    private double valorAnterior;
-    private double chegada;
-    private Integer indice;
-    private double tempoTotalFila;
+    private Integer statusServidor = 0;
+    private Integer numeroEmFila = 0;
+    private final ArrayList<Double> filaChegada = new ArrayList<>();
+    private double tempoUltimoEvento = 0;
+    private double relogioSimulacao = 0;
+    private double proximaSaida = 9999999999L;
+    private double proximaChegada = 0;
+    private Boolean fimSimulacao = Boolean.FALSE;
+    private String proximoEvento = "C";
+    private double areaSobQuantidade = 0;
+    private double areaSobOcupacao = 0;
+    private Integer clientesAtendidos = 0;
+    private Integer indice = 0;
+    private double tempoTotalFila = 0;
 
-    public Servidor(double statusServidor, double numeroEmFila, ArrayList<Double> filaChegada, double tempoUltimoEvento, double relogioSimulacao, double proximaSaida, double proximaChegada, Boolean fimSimulacao, String proximoEvento, double areaSobQuantidade, double areaSobOcupacao, double clientesAtendidos, double valorAnterior, double chegada) {
-        this.statusServidor = statusServidor;
-        this.numeroEmFila = numeroEmFila;
-        this.filaChegada = filaChegada;
-        this.tempoUltimoEvento = tempoUltimoEvento;
-        this.relogioSimulacao = relogioSimulacao;
-        this.proximaSaida = proximaSaida;
-        this.proximaChegada = proximaChegada;
-        this.fimSimulacao = fimSimulacao;
-        this.proximoEvento = proximoEvento;
-        this.areaSobQuantidade = areaSobQuantidade;
-        this.areaSobOcupacao = areaSobOcupacao;
-        this.clientesAtendidos = clientesAtendidos;
-        this.valorAnterior = valorAnterior;
-        this.chegada = chegada;
+    public Servidor() {
     }
 
     public double getTempoTotalFila() {
@@ -51,28 +35,24 @@ public class Servidor {
         this.indice = indice;
     }
 
-    public double getStatusServidor() {
+    public Integer getStatusServidor() {
         return statusServidor;
     }
 
-    public void setStatusServidor(double statusServidor) {
+    public void setStatusServidor(Integer statusServidor) {
         this.statusServidor = statusServidor;
     }
 
-    public double getNumeroEmFila() {
+    public Integer getNumeroEmFila() {
         return numeroEmFila;
     }
 
-    public void setNumeroEmFila(double numeroEmFila) {
+    public void setNumeroEmFila(Integer numeroEmFila) {
         this.numeroEmFila = numeroEmFila;
     }
 
     public ArrayList<Double> getFilaChegada() {
         return filaChegada;
-    }
-
-    public void setFilaChegada(ArrayList<Double> filaChegada) {
-        this.filaChegada = filaChegada;
     }
 
     public double getTempoUltimoEvento() {
@@ -139,27 +119,12 @@ public class Servidor {
         this.areaSobOcupacao = areaSobOcupacao;
     }
 
-    public double getClientesAtendidos() {
+    public Integer getClientesAtendidos() {
         return clientesAtendidos;
     }
 
-    public void setClientesAtendidos(double clientesAtendidos) {
+    public void setClientesAtendidos(Integer clientesAtendidos) {
         this.clientesAtendidos = clientesAtendidos;
     }
 
-    public double getValorAnterior() {
-        return valorAnterior;
-    }
-
-    public void setValorAnterior(double valorAnterior) {
-        this.valorAnterior = valorAnterior;
-    }
-
-    public double getChegada() {
-        return chegada;
-    }
-
-    public void setChegada(double chegada) {
-        this.chegada = chegada;
-    }
 }
