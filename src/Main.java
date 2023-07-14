@@ -42,10 +42,6 @@ public class Main {
         Eventos eventos = tempos.getListaDeEventos().get(servidor.getIndice());
         Eventos proximoEvento = tempos.getListaDeEventos().get(servidor.getIndice());
 
-        exibirEstados(servidor);
-
-        System.out.println("Geração atual: " + (servidor.getIndice() + 1));
-
         if (Objects.equals(servidor.getProximoEvento(), "C")) {
             processarChegada(eventos, proximoEvento, servidor);
         } else if (Objects.equals(servidor.getProximoEvento(), "S")) {
@@ -67,8 +63,8 @@ public class Main {
             } else {
                 servidor.setProximoEvento(temporiza(servidor));
             }
-            exibirEstados(servidor);
         }
+        exibirEstados(servidor);
     }
 
     private static String temporiza(Servidor servidor) {
