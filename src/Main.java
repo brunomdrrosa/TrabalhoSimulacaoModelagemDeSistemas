@@ -143,6 +143,7 @@ public class Main {
 
     private static void exibirEstados(Servidor servidor) {
         final DecimalFormat df = new DecimalFormat("0.00");
+        final DecimalFormat dfQuatroCasas = new DecimalFormat("0.0000");
 
         System.out.println();
         System.out.println("Status do servidor: " + servidor.getStatusServidor());
@@ -159,9 +160,9 @@ public class Main {
         System.out.println("Área sob ocupação: " + df.format(servidor.getAreaSobOcupacao()));
         System.out.println("Clientes atendidos: " + servidor.getClientesAtendidos());
         System.out.println();
-        System.out.println("Tempo médio em fila: " + df.format(servidor.getTempoTotalFila() / servidor.getClientesAtendidos()));
-        System.out.println("Número médio em fila: " + df.format(servidor.getAreaSobQuantidade() / servidor.getRelogioSimulacao()));
-        System.out.println("Taxa de ocupação: " + df.format((servidor.getAreaSobOcupacao() / servidor.getRelogioSimulacao()) * 100) + "%");
+        System.out.println("Tempo médio em fila: " + dfQuatroCasas.format(servidor.getTempoTotalFila() / servidor.getClientesAtendidos()));
+        System.out.println("Número médio em fila: " + dfQuatroCasas.format(servidor.getAreaSobQuantidade() / servidor.getRelogioSimulacao()));
+        System.out.println("Taxa de ocupação: " + dfQuatroCasas.format((servidor.getAreaSobOcupacao() / servidor.getRelogioSimulacao()) * 100) + "%");
     }
 
     private static double gerarEvento(CongruenteLinear metodoCongruenteLinear, double evento) {
